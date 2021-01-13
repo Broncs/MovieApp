@@ -1,4 +1,19 @@
 .btn {
   padding: 8px 20px;
-  border-radius: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+
+  &:active {
+    transform: scale(0.8);
+  }
+}
+.next {
+  background: #5cb85c;
+  color: #fff;
+}
+.prev {
+  background-color: $clr-grey;
+  color: #fff;
 }
