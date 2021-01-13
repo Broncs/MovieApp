@@ -11,8 +11,10 @@ const PopularMovies = () => {
         popularMovies &&
         popularMovies.results.map((populatMovieItem, index) => (
           <div key={index} className="movies-single-item">
-            {populatMovieItem.overview.length !== 0 && (
+            {populatMovieItem.overview.length !== 0 ? (
               <p>{populatMovieItem.overview.substring(0, 400)}</p>
+            ) : (
+              <p>Sem Descrição</p>
             )}
 
             <img

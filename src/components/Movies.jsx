@@ -16,14 +16,24 @@ const Movies = () => {
           {!isLoading ? (
             movies.results &&
             movies.results.map((movieItem, index) => (
-              <div key={index} className="movies-single-item">
-                {movieItem.overview.length !== 0 && (
+              <div
+                key={index}
+                className="movies-single-item"
+                style={{
+                  display: !movieItem.poster_path && "none",
+                }}
+              >
+                {movieItem.overview.length !== 0 ? (
                   <p>{movieItem.overview.substring(0, 400)}</p>
+                ) : (
+                  <p>Sem Descrição</p>
                 )}
-                <img
-                  src={`https://image.tmdb.org/t/p/w400/${movieItem.poster_path}`}
-                  alt="poster"
-                />
+                {movieItem.poster_path ? (
+                  <img
+                    src={`https://image.tmdb.org/t/p/w400/${movieItem.poster_path}`}
+                    alt="poster"
+                  />
+                ) : null}
               </div>
             ))
           ) : (
