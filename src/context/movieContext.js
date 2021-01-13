@@ -26,8 +26,6 @@ export const MovieContextProvider = ({ children }) => {
       if (search.trim() === "") {
         setMovies(data);
       }
-
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -35,6 +33,7 @@ export const MovieContextProvider = ({ children }) => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (search.trim() === "") {
       return;
@@ -67,7 +66,6 @@ export const MovieContextProvider = ({ children }) => {
       const popularMoviesData = await popularMoviesResponse.json();
 
       setPopularMovies(popularMoviesData);
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -83,6 +81,13 @@ export const MovieContextProvider = ({ children }) => {
       getMovies();
     }
   }, [search, currentPage]);
+
+  useEffect(() => {
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1300);
+    return () => clearTimeout(loadingTimeout);
+  }, [movies, currentPage]);
 
   return (
     <MovieContext.Provider

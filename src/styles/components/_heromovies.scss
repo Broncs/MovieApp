@@ -4,8 +4,27 @@
   row-gap: 30px;
   column-gap: 30px;
   text-align: center;
+  margin-bottom: 50px;
 }
+.movies-single-item {
+  position: relative;
 
+  p {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-size: 0.9rem;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
 .movies-single-item img {
   width: 100%;
 }

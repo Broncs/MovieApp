@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { MovieContext } from "../context/movieContext";
+import Loader from "../components/Loader";
 
 const Movies = () => {
   const { movies, isLoading } = useContext(MovieContext);
+  console.log(movies);
 
   return (
     <section>
@@ -15,6 +17,9 @@ const Movies = () => {
             movies.results &&
             movies.results.map((movieItem, index) => (
               <div key={index} className="movies-single-item">
+                {movieItem.overview.length !== 0 && (
+                  <p>{movieItem.overview.substring(0, 400)}</p>
+                )}
                 <img
                   src={`https://image.tmdb.org/t/p/w400/${movieItem.poster_path}`}
                   alt="poster"
@@ -22,7 +27,7 @@ const Movies = () => {
               </div>
             ))
           ) : (
-            <h1>carregando</h1>
+            <Loader />
           )}
         </div>
       </div>
