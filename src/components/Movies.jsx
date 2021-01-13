@@ -1,40 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
+import { MovieContext } from "../context/movieContext";
 
 const Movies = () => {
+  const { movies, isLoading } = useContext(MovieContext);
+
   return (
     <section>
       <div>
         <div className="movies-lista">
-          <div className="movies-single-item">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/pt/thumb/9/9b/Avengers_Endgame.jpg/156px-Avengers_Endgame.jpg"
-              alt="haha"
-            />
-          </div>
-          <div>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/pt/thumb/9/9b/Avengers_Endgame.jpg/156px-Avengers_Endgame.jpg"
-              alt="haha"
-            />
-          </div>
-          <div>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/pt/thumb/9/9b/Avengers_Endgame.jpg/156px-Avengers_Endgame.jpg"
-              alt="haha"
-            />
-          </div>
-          <div>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/pt/thumb/9/9b/Avengers_Endgame.jpg/156px-Avengers_Endgame.jpg"
-              alt="haha"
-            />
-          </div>
-          <div>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/pt/thumb/9/9b/Avengers_Endgame.jpg/156px-Avengers_Endgame.jpg"
-              alt="haha"
-            />
-          </div>
+          {movies.results && movies.results.length === 0 && (
+            <h1>resultado nao encontrado</h1>
+          )}
+          {!isLoading ? (
+            movies.results &&
+            movies.results.map((movieItem, index) => (
+              <div key={index} className="movies-single-item">
+                <img
+                  src={`https://image.tmdb.org/t/p/w400/${movieItem.poster_path}`}
+                  alt="poster"
+                />
+              </div>
+            ))
+          ) : (
+            <h1>carregando</h1>
+          )}
         </div>
       </div>
     </section>

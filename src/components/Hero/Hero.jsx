@@ -1,14 +1,13 @@
 import React from "react";
 import Navbar from "./HeroNav/Navbar";
-import Pagination from "../Pagination";
-import Movies from "../Movies";
+
+import Output from "../output/Output";
 
 const Hero = () => {
   return (
     <section className="container">
       <Navbar />
-      <Movies />
-      <Pagination />
+      <Output />
     </section>
   );
 };

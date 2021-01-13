@@ -2,19 +2,29 @@ import React, { useContext } from "react";
 import { MovieContext } from "../../../context/movieContext";
 
 const Navbar = () => {
-  const value = useContext(MovieContext);
+  const { search, setSearch, handleSearch, setActiveLink } = useContext(
+    MovieContext
+  );
 
   return (
     <nav className="navbar">
       <div className="nav-links">
         <h1>Movie App</h1>
         <ul>
-          <li>popular</li>
-          <li>todos os filmes</li>
+          <li onClick={() => setActiveLink("Popular")}>popular</li>
+          <li onClick={() => setActiveLink("Todos filmes")}>todos os filmes</li>
         </ul>
       </div>
       <div>
-        <input className="search-input" type="text" placeholder="pesquisa" />
+        <form onSubmit={handleSearch}>
+          <input
+            className="search-input"
+            type="text"
+            placeholder="pesquisa"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </form>
       </div>
     </nav>
   );
