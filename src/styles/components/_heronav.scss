@@ -13,6 +13,7 @@
   align-items: center;
   h1 {
     margin-right: 20px;
+    color: $clr-blue;
   }
 
   ul {
@@ -27,11 +28,22 @@
 .search-input {
   padding: 8px 20px;
   margin: 10px;
+  color: $clr-blue;
+  background-color: $clr-black;
+  outline: none;
+
+  &::placeholder {
+    color: $clr-blue;
+    opacity: 0.6;
+  }
 }
 
 @media screen and (min-width: 700px) {
   .navbar {
     justify-content: space-between;
     flex-direction: row;
+  }
+  .nav-links h1 {
+    font-size: 2rem;
   }
 }

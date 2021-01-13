@@ -5,6 +5,8 @@ export const MovieContext = createContext();
 const API_KEY = "9d4fbae6d45a1f406cc115a66a4de03d";
 
 export const MovieContextProvider = ({ children }) => {
+  const [hiddenMenu, setHiddenMenu] = useState(true);
+  const [showPagination, setShowPagination] = useState(true);
   const [activeLink, setActiveLink] = useState("Popular");
   const [search, setSearch] = useState("");
   const [movies, setMovies] = useState([]);
@@ -21,7 +23,10 @@ export const MovieContextProvider = ({ children }) => {
 
       const data = await response.json();
 
-      setMovies(data);
+      if (search.trim() === "") {
+        setMovies(data);
+      }
+
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -30,14 +35,27 @@ export const MovieContextProvider = ({ children }) => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+
     if (search.trim() === "") {
       return;
     }
+
     const searchResponse = await fetch(
       `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=pt-BR&query=${search}&page=${currentPage}`
     );
     const searchData = await searchResponse.json();
     setMovies(searchData);
+
+    setShowPagination(false);
+  };
+
+  const newPage = (direction) => {
+    console.log(direction);
+    if (direction === "proximo") {
+      setCurrentPage(currentPage + 1);
+    } else if (direction === "anterior" && currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
   const getPopularMovies = async () => {
@@ -60,8 +78,11 @@ export const MovieContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    getMovies();
-  }, []);
+    if (search.trim() === "") {
+      setShowPagination(true);
+      getMovies();
+    }
+  }, [search, currentPage]);
 
   return (
     <MovieContext.Provider
@@ -73,6 +94,12 @@ export const MovieContextProvider = ({ children }) => {
         setSearch,
         handleSearch,
         setActiveLink,
+        setHiddenMenu,
+        hiddenMenu,
+        setCurrentPage,
+        currentPage,
+        newPage,
+        showPagination,
       }}
     >
       {children}
