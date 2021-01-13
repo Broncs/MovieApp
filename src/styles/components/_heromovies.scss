@@ -1,0 +1,27 @@
+.movies-lista {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 30px;
+  text-align: center;
+}
+
+.movies-single-item {
+}
+
+@media screen and (min-width: 550px) {
+  .movies-lista {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .movies-lista {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .movies-lista {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
